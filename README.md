@@ -11,11 +11,11 @@ Actually, there was one extension that allowed customizable hotkey and timestep,
 
 Plan on adding customizable hotkeys in the future, for the moment it hard-coded:
 
-- A: playback speed -0.1
-- S: playback speed +0.1
-- C: playback speed = 1
-- Z: rewind time 2s
-- X: advance time 2s
-- ,: rewind time 0.03s
-- .: advance time 0.03s
-- V: toggle visibility of playback speed tooltip
+- `A`: playback speed -0.1
+- `S`: playback speed +0.1
+- `C`: playback speed = 1
+- `Z`: rewind time 2s
+- `X`: advance time 2s
+- `,`: rewind time 0.03s
+- `.`: advance time 0.03s
+- `V`: toggle visibility of playback speed tooltip
