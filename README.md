@@ -9,7 +9,7 @@ Actually, there was one extension that allowed customizable hotkey and timestep,
 
 ## Hotkeys
 
-Plan on adding customizable hotkeys in the future, for the moment it hard-coded:
+Plan on adding customizable hotkeys in the future, for the moment, it's hard-coded:
 
 - `A`: playback speed -0.1
 - `S`: playback speed +0.1

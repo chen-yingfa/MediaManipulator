@@ -161,7 +161,7 @@
         }
     }
 
-    window.addEventListener('keypress', function(event) {
+    window.addEventListener('keydown', function(event) {
         if (event.key in hotkeys) {
             console.log("pressed " + event.key)
             let act = hotkeys[event.key]
@@ -180,7 +180,7 @@
                 console.error("Error handling hotkey")
             }
         }
-    });
+    })
 
     function onLoad() {
         console.log("Initting Video Controls")
