@@ -239,11 +239,16 @@ window.addEventListener('keydown', function(event) {
 })
 
 function onLoad() {
+    if (window.location.hostname.includes("bilibili.com")) {
+        localStorage.setItem("bwphevc_supported", "\{\}")
+    }
     debug("Initting Media Manipulator")
     player = getPlayer()
     if (player) {
         createPanel()
     }
+    debug("Create panel")
+    window.onresize = updatePanel
     // setInterval(() => {
     //     update()
     // }, 100)
