@@ -1,0 +1,44 @@
+html {
+    padding: 0px;
+    margin: 0px;
+    border-radius: 12px;
+}
+
+body {
+    min-width: 8em;
+    background-color: rgb(35, 35, 35);
+    color: rgb(240, 240, 240);
+    border-radius: 20px;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0px;
+} */
+ 
+#container {
+    width: 140px;
+    /* display: flex; */
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    padding: 6px;
+}
+
+.switch-container {
+    margin-left: auto;
+}
+
+.selectable:hover {
+    background-color: rgb(60, 60, 60);
+    cursor: pointer;
+}
+
+.item-text {
+    padding-left: 4px;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Media Manipulator</title>
+    <link rel="stylesheet" href="../styles/options.css" />
+    <link rel="stylesheet" href="../styles/global.css" />
+    <link rel="stylesheet" id="theme-switcher" href="../styles/themes/dark.css">
+    <script src="scripts/options.js"></script>
+</head>
+<body>
+    <div id="container">
+        
+        <div id="nav-bar">
+            <div id="main-logo" onclick="goToMainMenu()">
+                <div id="logo-text">Media Manipulator</div>
+            </div>
+            
+            <div id="nav-menu">
+                <div class="nav-menu-items">
+                    <a href="./options.html">Settings</a>
+                </div>
+                <div class="nav-menu-items">
+                    <a href="./about.html">About (upcoming)</a>
+                </div>
+            </div>
+        </div>
+        <div id="settings-body">
+            <div id="hotkeys-section">
+                <h3>Shortcuts</h3>
+                <div class="row customs" id="display">
+                    <input 
+                    class="customKey"
+                    type="text"
+                    value=""
+                    placeholder="press a hotkey"/>
+                    <input class="customValue" type="text" placeholder="ex: -0.1"/>
+                    <select class="customDo">
+                        <option value="display">Change playback rate</option>
+                    </select>
+                </div>
+                
+                <button id="add">Add New</button>
+            </div>
+            
+            <h3>Other</h3>
+            <div class="row">
+                <label for="enabled">Enable</label>
+                <input id="enabled" type="checkbox" />
+            </div>
+            <div class="row">
+                <label for="startHidden">Hide controller by default</label>
+                <input id="startHidden" type="checkbox" />
+            </div>
+            <div class="row">
+                <label for="rememberSpeed">Remember playback speed</label>
+                <input id="rememberSpeed" type="checkbox" />
+            </div>
+            
+            <button id="cancel-button">Cancel</button>
+            <button id="save-button">Save</button>
+            <button id="restore-button">Restore Defaults</button>
+        </div>
+    </div>
+    
+    <div id="footer-container">
+        <div id="footer-line"></div> 
+        <div id="footer">
+            <p>
+                Copyrights reserved. 2021 &copy;<br>
+            </p>
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <a href="https://github.com/jimmychan999/GoBangGame">GitHub</a>
+        </div>
+    </div>
+    
+    
+    <div id="status"></div>
+</div>
+</body>
+</html>

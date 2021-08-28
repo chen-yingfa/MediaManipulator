@@ -1,0 +1,30 @@
+{
+	"name": "Media Manipulator",
+	"short_name": "mm",
+	"version": "0.1",
+	"manifest_version": 3,
+	"description": "Manipulate HTML5 media content with hotkeys",
+	"homepage_url": "https://github.com/donny-chan/MediaManipulator",
+	"background": {
+		"service_worker": "background.js"
+	},
+	"permissions": ["storage"],
+	"options_page": "pages/options.html",
+	"action": {
+		"default_popup": "pages/popup.html"
+	},
+	"content_scripts": [
+		{
+			"all_frames": true,
+			"matches": ["http://*/*", "https://*/*", "file:///*"],
+			"match_about_blank": true,
+			"exclude_matches": [
+				"https://plus.google.com/hangouts/*",
+				"https://hangouts.google.com/*",
+				"https://meet.google.com/*"
+			],
+			"css": ["styles/controller.css"],
+			"js": ["scripts/controller.js"]
+		}
+	]
+}
