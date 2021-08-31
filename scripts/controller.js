@@ -172,6 +172,7 @@ function getPlayer() {
 }
 
 function updatePanel() {
+    if (!panel) return
     // let playerRect = player.getBoundingClientRect()
     // panel.style.top = `${playerRect.top + panelOffsetVer}px`
     // panel.style.left = `${playerRect.left + panelOffsetHor}px`
