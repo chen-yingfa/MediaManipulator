@@ -44,11 +44,11 @@ let hotkeys = {
     },
     '\'': {
         fn: fns.CHANGE_TIME,
-        val: 20,
+        val: 10,
     },
     ';': {
         fn: fns.CHANGE_TIME,
-        val: -20,
+        val: -10,
     },
     'v': {
         fn: fns.TOGGLE_VISIBILITY,
@@ -65,7 +65,7 @@ let player = null
  * 2: info
  * 3: debug
  */
-const LOG_LEVEL = 2
+const LOG_LEVEL = 0
 function error(x) {
     if (LOG_LEVEL < 1) return
     console.log(x)

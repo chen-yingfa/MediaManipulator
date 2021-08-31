@@ -1,4 +1,4 @@
-# Video Controller
+# Media Manipulator
 
 There are many browser extensions and tampermonkey scripts that control HTML5 videos, but I have found none that is satisfactory. Specifically, I want one extension with the following features.
 
@@ -20,6 +20,8 @@ Plan on adding customizable hotkeys in the future, for the moment, it's hard-cod
 - `X`: advance time 2s
 - `,`: rewind time 0.03s
 - `.`: advance time 0.03s
+- `;`: rewind time 10s
+- `'`: advance time 10s
 - `V`: toggle visibility of playback speed tooltip
 
 ## Developers' Note
