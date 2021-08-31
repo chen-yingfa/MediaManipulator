@@ -213,10 +213,10 @@ function togglePanelVisibility() {
 
 window.addEventListener('keydown', function(event) {
     player = getPlayer()
+    if (!player) return
     if (!panel) {
         createPanel()
     }
-    if (!player) return
 
     if (event.key in hotkeys) {
         debug("pressed " + event.key)
