@@ -65,7 +65,7 @@ let player = null
  * 2: info
  * 3: debug
  */
-const LOG_LEVEL = 0
+const LOG_LEVEL = 2
 function error(x) {
     if (LOG_LEVEL < 1) return
     console.log(x)
@@ -145,27 +145,19 @@ function getPlayer() {
      * @description: Generally, just get the "video" tag. But we need to
      * support different HTML document structures.
      */
-    let player = document.querySelector("video")
-    if (player) return player
-    info("did not find video tag")
 
-    function getBilibiliPlayer() {
+    if (window.location.hostname.includes("bilibili.com")) {
         info("Checking Bilibili player")
-        let = player = document.querySelector("bwp-video")
-        if (player) return player
-        info("did not find bwp-video tag")
-        let iframe = document.querySelector("iframe.b-help-player")
-        if (iframe) {
-            player = iframe.contentWindow.document.querySelector("video")
-            if (player) return player
-            player = iframe.contentWindow.document.querySelector("bwp-video")
-            if (player) return player
+        if (window.dashPlayer != null) {
+            info("Found Bilibili player")
+            return window.dashPlayer.video
         }
         info("Did not find Bilibili player")
     }
 
-    player = getBilibiliPlayer()
-    if (player) return player
+    let _player = document.querySelector("video")
+    if (_player) return _player
+    info("did not find video tag")
 
     error("Could not find player")
     return null

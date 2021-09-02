@@ -24,7 +24,12 @@
 				"https://meet.google.com/*"
 			],
 			"css": ["styles/controller.css"],
-			"js": ["scripts/controller.js"]
+			"js": ["scripts/contentscript.js"],
+			"run_at": "document_end"
 		}
-	]
+	],
+    "web_accessible_resources": [{
+		"resources": ["scripts/controller.js"],
+		"matches": ["<all_urls>"]
+	}]
 }
