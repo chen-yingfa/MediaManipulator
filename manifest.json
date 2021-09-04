@@ -8,7 +8,7 @@
 	"background": {
 		"service_worker": "background.js"
 	},
-	"permissions": ["storage"],
+	"permissions": ["storage", "tabs"],
 	"options_page": "pages/options.html",
 	"action": {
 		"default_popup": "pages/popup.html"

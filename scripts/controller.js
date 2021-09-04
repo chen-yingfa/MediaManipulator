@@ -7,6 +7,11 @@ const fns = {
     TOGGLE_VISIBILITY: 4,
 }
 
+let settings = {
+    enabled: true,
+    rememberSpeed: false
+}
+
 // panel params
 let panelOffsetHor = 6
 let panelOffsetVer = 6
@@ -66,23 +71,23 @@ let player = null
  * 3: debug
  */
 const LOG_LEVEL = 0
-function error(x) {
+function error(...x) {
     if (LOG_LEVEL < 1) return
-    console.log(x)
+    console.log(...x)
 }
 
-function info(x) {
+function info(...x) {
     if (LOG_LEVEL < 2) return
-    console.log(x)
+    console.log(...x)
 }
 
-function debug(x) {
+function debug(...x) {
     if (LOG_LEVEL < 3) return
-    console.log(x)
+    console.log(...x)
 }
 
 function createPanel() {
-    info("Creating panel for Video Controls")
+    info("Creating panel for showing playback rate")
     
     let playerRect = player.getBoundingClientRect()
     panel = document.createElement("div")
@@ -135,7 +140,7 @@ function createPanel() {
     }
     makeDragable(panel)
 
-    window.onresize = updatePanel
+    window.onresize = updatePanel  // Reposition panel when window is resized
 }
 
 function getPlayer() {
@@ -146,8 +151,10 @@ function getPlayer() {
      * support different HTML document structures.
      */
 
+    
+    // For Bilibili
     if (window.location.hostname.includes("bilibili.com")) {
-        info("Checking Bilibili player")
+        info("Searching for Bilibili player")
         if (window.dashPlayer != null) {
             info("Found Bilibili player")
             return window.dashPlayer.video
@@ -155,6 +162,7 @@ function getPlayer() {
         info("Did not find Bilibili player")
     }
 
+    // Other websites
     let _player = document.querySelector("video")
     if (_player) return _player
     info("did not find video tag")
@@ -164,6 +172,7 @@ function getPlayer() {
 }
 
 function updatePanel() {
+    // Update panel text and position
     if (!panel) return
     let playerRect = player.getBoundingClientRect()
     panel.style.top = `${playerRect.top + panelOffsetVer}px`
@@ -215,12 +224,21 @@ function isInputElement(elem) {
 }
 
 window.addEventListener('keydown', function(event) {
+    /**
+     * Every hotkey is handled by this event listener.
+     * 
+     * 
+     */
+
+    // Ignore hotkey if extension is disabled, or no player is found.
+    if (!settings.enabled) return
     player = getPlayer()
     if (!player) return
     if (!panel) {
         createPanel()
     }
 
+    // Block hotkeys when user is inputting
     if (isInputElement(event.target)) {
         debug("Keydown on input element")
         return
@@ -246,27 +264,65 @@ window.addEventListener('keydown', function(event) {
     }
 })
 
+function fetchSettings() {
+    /**
+     * Fetch settings from content script. Settings should be set by
+     * the options or popup page.
+     */
+    info("controller.js fetching settings from contentscript.js")
+    let data = {type: "MM_fetchSettings"}
+    window.postMessage(data, "*")
+}
+
 function onLoad() {
+    debug("Calling onLoad()")
     if (window.location.hostname.includes("bilibili.com")) {
         localStorage.setItem("bwphevc_supported", "\{\}")
     }
     debug("Initting Media Manipulator")
+    // loadSettings()
     player = getPlayer()
     if (player) {
         createPanel()
     }
-    debug("Create panel")
-    window.onresize = updatePanel
-    // setInterval(() => {
-    //     update()
-    // }, 100)
+    debug("Created panel")
+
+    info("Init event listener for settings update")
+    fetchSettings()
 }
 
-function update() {
-    // updatePanel()
-}
-
-debug("Calling onLoad()")
+// A small delay to make sure page is loaded
 window.setTimeout(() => {
     onLoad()
 }, 20)
+
+window.addEventListener("message", (event) => {
+    debug("controller.js got message event:", event)
+    // We only accept messages from ourselves
+    if (event.source != window) {
+        return;
+    }
+
+    if (event.data.type && (event.data.type == "MM_onSettingsUpdate")) {
+        debug("Content script received:", event.data);
+
+        // Update variables in settings
+        let dataType = event.data.data.type
+        let data = event.data.data.content
+        settings.enabled = data.enabled;
+
+        info("Updated settings:", settings)
+
+        if (settings.enabled) {
+            player = getPlayer()
+            if (player && !panel) {
+                createPanel()
+            }
+        } else {
+            if (panel) {
+                panel.parentNode.removeChild(panel)
+                panel = null
+            }
+        } 
+    }
+}, false);
