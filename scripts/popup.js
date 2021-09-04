@@ -20,22 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Set enabled checkbox according to chrome.storage
     chrome.storage.sync.get(["enabled"], (result) => {
-        // console.log("value:", result.enabled)
         enabledCheckbox.checked = result.enabled
     })
 
 
     function toggleEnabled() {
-        console.log("toggle enabled")
         enabled = enabledCheckbox.checked
         chrome.storage.sync.set({enabled: enabled})
         chrome.runtime.sendMessage({enabled: enabled})
-        
-        // let event = new CustomEvent("onSettingsUpdate", {enabled: enabled})
-        // window.dispatchEvent(event)
-        // setTimeout(() => {
-        //     console.log("sending message from content script to web page")
-        //     window.postMessage({type: "FROM_POPUP", text: "ceshi"}, "*")
-        // }, 100)
     }
 });

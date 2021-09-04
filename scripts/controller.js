@@ -87,6 +87,10 @@ function debug(...x) {
 }
 
 function createPanel() {
+    /**
+     * Create the panel on the top left corner of the video, for showing
+     * current playback rate.
+     */
     info("Creating panel for showing playback rate")
     
     let playerRect = player.getBoundingClientRect()
@@ -226,8 +230,6 @@ function isInputElement(elem) {
 window.addEventListener('keydown', function(event) {
     /**
      * Every hotkey is handled by this event listener.
-     * 
-     * 
      */
 
     // Ignore hotkey if extension is disabled, or no player is found.
@@ -248,6 +250,7 @@ window.addEventListener('keydown', function(event) {
         debug("pressed " + event.key)
         let act = hotkeys[event.key]
         let fn = act.fn
+        // Call corresponding function
         if (fn == fns.CHANGE_TIME) {
             changeTime(act.val)
         } else if (fn == fns.CHANGE_SPEED) {
@@ -280,7 +283,6 @@ function onLoad() {
         localStorage.setItem("bwphevc_supported", "\{\}")
     }
     debug("Initting Media Manipulator")
-    // loadSettings()
     player = getPlayer()
     if (player) {
         createPanel()
@@ -297,6 +299,9 @@ window.setTimeout(() => {
 }, 20)
 
 window.addEventListener("message", (event) => {
+    // Listen to message from content script
+
+
     debug("controller.js got message event:", event)
     // We only accept messages from ourselves
     if (event.source != window) {
@@ -314,11 +319,13 @@ window.addEventListener("message", (event) => {
         info("Updated settings:", settings)
 
         if (settings.enabled) {
+            // If just enabled, create panel
             player = getPlayer()
             if (player && !panel) {
                 createPanel()
             }
         } else {
+            // If just disabled, remove panel
             if (panel) {
                 panel.parentNode.removeChild(panel)
                 panel = null
