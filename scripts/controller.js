@@ -65,7 +65,7 @@ let player = null
  * 2: info
  * 3: debug
  */
-const LOG_LEVEL = 2
+const LOG_LEVEL = 0
 function error(x) {
     if (LOG_LEVEL < 1) return
     console.log(x)
@@ -165,9 +165,9 @@ function getPlayer() {
 
 function updatePanel() {
     if (!panel) return
-    // let playerRect = player.getBoundingClientRect()
-    // panel.style.top = `${playerRect.top + panelOffsetVer}px`
-    // panel.style.left = `${playerRect.left + panelOffsetHor}px`
+    let playerRect = player.getBoundingClientRect()
+    panel.style.top = `${playerRect.top + panelOffsetVer}px`
+    panel.style.left = `${playerRect.left + panelOffsetHor}px`
     speedText.textContent = player.playbackRate.toFixed(2).toString()
 }
 
@@ -204,11 +204,26 @@ function togglePanelVisibility() {
     }
 }
 
+function isInputElement(elem) {
+    // Return whether element is an input element
+    let tag = elem.tagName.toLowerCase()
+    if (tag == "textarea") return true
+    else if (tag == "input" && elem.getAttribute("type") == "text") {
+        return true
+    }
+    return false
+}
+
 window.addEventListener('keydown', function(event) {
     player = getPlayer()
     if (!player) return
     if (!panel) {
         createPanel()
+    }
+
+    if (isInputElement(event.target)) {
+        debug("Keydown on input element")
+        return
     }
 
     if (event.key in hotkeys) {
