@@ -1,0 +1,27 @@
+:root {
+    --footer-padding-hor: min(8vw, 120px);
+    --footer-padding-bottom: 48px;
+}
+
+/* Footer */
+
+#footer-container {
+    margin: 0;
+    /* height: 100%; */
+    padding-left: var(--footer-padding-hor);
+    padding-right: var(--footer-padding-hor);
+    padding-bottom: var(--footer-padding-bottom);
+    color: var(--color-footer-text);
+}
+
+
+#footer-line {
+    background-color: var(--color-footer-line);
+    height: 1px;
+    width: 96%;
+    margin-top: 32px;
+    margin-top: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

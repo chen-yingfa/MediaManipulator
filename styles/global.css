@@ -1,16 +1,16 @@
 :root {
 	
-    /* --input-width: 32px; */
+    --input-width: 48px;
     --input-height: 18px;
-    --input-border-radius: 10px;
-    --input-padding: calc(4px - var(--input-border-width)) calc(8px - var(--input-border-width));
+    /* --input-border-radius: 10px; */
+    --input-padding: calc(4px - var(--input-border-width)) calc(4px - var(--input-border-width));
 
 }
 
 button {
     background-color: var(--button-color);
 	border-width: 0px;
-    border-radius: var(--button-border-radius);
+    /* border-radius: var(--button-border-radius); */
     padding: var(--button-padding);
     margin: var(--button-margin);
     color: var(--button-text-color);
@@ -27,7 +27,7 @@ button:disabled {
     background-color: var(--button-disabled-color);
     color: var(--button-disabled-text-color);
 }
-
+/* 
 input {
     outline: none;
     border-style: solid;
@@ -35,25 +35,24 @@ input {
     border-radius: var(--input-border-radius);
     border-color: var(--input-border-color);
     padding: var(--input-padding);
-    width: var(--input-width);
     height: var(--input-height);
+    width: var(--input-width);
     vertical-align: middle;
     font-family: "Roboto Mono";
     color: var(--input-color);
-    text-align: center;
     -webkit-appearance: none;
     background-color: var(--input-bg-color);
-}
-
+} */
+/* 
 input::placeholder {
     color: var(--input-placeholder-color);
-}
+} */
 
 
 select {
 	border-width: 0px;
-	border-radius: 6px;
-	width: 180px;
+	/* border-radius: var(--input-border-radius); */
+	/* width: 180px; */
 	height: calc(var(--input-height) + 2 * var(--input-padding));
 	padding: var(--input-padding);
 }

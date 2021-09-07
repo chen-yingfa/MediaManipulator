@@ -13,18 +13,18 @@
     --color-footer-bg: rgb(60, 60, 60);
     --color-footer-line: rgba(255, 255, 255, 0.4);
 
-	--button-padding: 4px;
+	--button-padding: 4px 8px;
 	--button-border-radius: 6px;
 	--button-color: rgb(58, 116, 216);
     --button-text-color: rgb(255, 255, 255);
 	--button-disabled-color: rgba(80, 140, 245, 0.3);
 	--button-disabled-text-color: var(button-text-color);
-    --button-hover-color: rgb(130, 170, 250);
-	--button-hover-text-color: rgba(255, 255, 255, 0.7);
+    --button-hover-color: rgb(114, 154, 233);
+	--button-hover-text-color: rgb(255, 255, 255);
 
-    --input-bg-color: rgb(120, 120, 120);
-    --input-color: black;
-    --input-placeholder-color: rgb(80, 80, 80);
+    --input-bg-color: rgb(90, 90, 90);
+    --input-color: rgb(255, 255, 255);
+    --input-placeholder-color: rgb(167, 167, 167);
     --input-border-width: 0px;
 
     --color-board: rgb(199, 136, 84);

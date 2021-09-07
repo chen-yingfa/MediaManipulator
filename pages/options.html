@@ -4,8 +4,10 @@
     <title>Media Manipulator</title>
     <link rel="stylesheet" href="../styles/options.css" />
     <link rel="stylesheet" href="../styles/global.css" />
+    <link rel="stylesheet" href="../styles/nav-bar.css" />
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <link rel="stylesheet" href="../styles/toggle-switch.css" />
     <link rel="stylesheet" id="theme-switcher" href="../styles/themes/dark.css">
-    <script src="scripts/options.js"></script>
 </head>
 <body>
     <div id="container">
@@ -25,40 +27,44 @@
             </div>
         </div>
         <div id="settings-body">
-            <div id="hotkeys-section">
-                <h3>Shortcuts</h3>
-                <div class="row customs" id="display">
-                    <input 
-                    class="customKey"
-                    type="text"
-                    value=""
-                    placeholder="press a hotkey"/>
-                    <input class="customValue" type="text" placeholder="ex: -0.1"/>
-                    <select class="customDo">
-                        <option value="display">Change playback rate</option>
-                    </select>
+            <div id="hotkeys">
+                <h3>Hotkeys (in development...)</h3>
+                <div id="hotkey-list">
                 </div>
                 
-                <button id="add">Add New</button>
+                <button id="add-hotkey-button">Add New</button>
             </div>
             
-            <h3>Other</h3>
-            <div class="row">
-                <label for="enabled">Enable</label>
-                <input id="enabled" type="checkbox" />
+            <h3>Other (in development)</h3>
+            <div class="settings-item">
+                <div class="item-text">Hide panel by default</div>
+                <!-- <input id="hide-panel-by-default" type="checkbox" /> -->
+                <div class="switch-container">
+                    <label class="switch">
+                        <!-- Enabled by default -->
+                        <input id="hide-panel-by-default" type="checkbox" /> 
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
-            <div class="row">
-                <label for="startHidden">Hide controller by default</label>
-                <input id="startHidden" type="checkbox" />
-            </div>
-            <div class="row">
-                <label for="rememberSpeed">Remember playback speed</label>
-                <input id="rememberSpeed" type="checkbox" />
+            <div class="settings-item">
+                <div class="item-text">Remember playback speed</div>
+                <!-- <input id="remember-playback-speed" type="checkbox" />-->
+                 <div class="switch-container">
+                    <label class="switch">
+                        <!-- Enabled by default -->
+                        <input id="remember-playback-speed" type="checkbox" /> 
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
             
-            <button id="cancel-button">Cancel</button>
-            <button id="save-button">Save</button>
-            <button id="restore-button">Restore Defaults</button>
+
+            <div id="settings-save">
+                <button id="cancel-button">Cancel</button>
+                <button id="save-button">Save</button>
+                <button id="restore-button">Restore Defaults</button>
+            </div>
         </div>
     </div>
     
@@ -68,13 +74,14 @@
             <p>
                 Copyrights reserved. 2021 &copy;<br>
             </p>
-            <i class="fa fa-github" aria-hidden="true"></i>
-            <a href="https://github.com/jimmychan999/GoBangGame">GitHub</a>
+            <a href="https://github.com/donny-chan/MediaManipulator">GitHub</a>
         </div>
     </div>
     
     
     <div id="status"></div>
 </div>
+
+<script src="../scripts/options.js"></script>
 </body>
 </html>

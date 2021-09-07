@@ -1,0 +1,82 @@
+:root {
+    --nav-bar-height: 52px;
+    --nav-bar-padding-hor: min(5vw, 120px);
+    --nav-menu-items-height: 24px;
+}
+
+/* Navigation bar */
+
+#nav-bar {
+    display: flex;
+    /* width: 100%; */
+    height: var(--nav-bar-height);
+    background-color: var(--color-bg-nav-bar);
+    box-shadow: 0 2px 4px 0 rgb(0, 0, 0, 0.2);
+    margin-top: 0px;
+    /* margin-bottom: 2rem; */
+    padding-left: var(--nav-bar-padding-hor);
+    padding-right: var(--nav-bar-padding-hor);
+    vertical-align: middle;
+    border-width: var(--border-width-nav-bar);
+    border-color: var(--border-color-nav-bar);
+    border-bottom-style: solid;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+#main-logo {
+    /* display: flex; */
+    /* font-size: 14px; */
+    cursor: pointer;
+    margin: 0px;
+    width: var(--main-logo-width);
+    height: var(--nav-bar-height);
+    top: 0px;
+}
+
+#logo-text {
+    height: 100%;
+    width: 100%;
+    color: var(--color-logo-text);
+    font-size: 24px;
+    font-weight: bolder;
+    font-family: var(--font);
+    vertical-align: middle;
+    line-height: var(--nav-bar-height);
+}
+
+#nav-menu {
+    display: flex;
+    height: var(--nav-bar-height);
+    margin-left: auto;
+    margin-right: 0px;
+    right: 0px;
+}
+
+.nav-menu-items {
+    display: flex;
+    position: relative;
+    height: var(--nav-menu-items-height);
+    vertical-align: middle;
+    padding: 0px;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 8px;
+    color: var(--color-text-nav-menu-items);
+    background-color: var(--color-bg-nav-bar);
+}
+
+.nav-menu-items a {
+    padding-left: 12px;
+    padding-right: 12px;
+    line-height: var(--nav-menu-items-height);
+    vertical-align: middle;
+    background-color: var(--color-bg-nav-bar);
+    border-radius: 6px;
+}
+
+.nav-menu-items a:hover {
+    background-color: var(--color-bg-nav-menu-items-hover);
+    color: var(--color-text-nav-menu-items-hover);
+}

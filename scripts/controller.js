@@ -1,64 +1,83 @@
 
+// Enums for hotkey functionalities
 const fns = {
-    CHANGE_SPEED: 0,
-    CHANGE_TIME: 1,
-    CHANGE_SPEED_ABS: 2,
-    CHANGE_TIME_ABS: 3,
-    TOGGLE_VISIBILITY: 4,
+    CHANGE_SPEED: {
+        val: 0,
+        name: "Change Speed",
+    },
+    CHANGE_TIME:  {
+        val: 1,
+        name: "Change Time",
+    },
+    CHANGE_SPEED_ABS:  {
+        val: 2,
+        name: "Set Speed",
+    },
+    CHANGE_TIME_ABS:  {
+        val: 3,
+        name: "Set Time",
+    },
+    TOGGLE_VISIBILITY: {
+        val: 4,
+        name: "Toggle Panel Visibility",
+    },
 }
 
+// Store all settings that are editable by the user. Will be stored in
+// chrome.storage.
 let settings = {
+    // Default values, will be overridden by chrome.storage is possible
     enabled: true,
-    rememberSpeed: false
+    maxSpeed: 16,
+    rememberSpeed: false,
+    panelOpacity: 0.3,
+    hidePanelByDefault: false,
+    hotkeys: {
+        's': {
+            fn: fns.CHANGE_SPEED,
+            val: 0.1,
+        },
+        'a': {
+            fn: fns.CHANGE_SPEED,
+            val: -0.1,
+        },
+        'c': { // Reset to normal speed
+            fn: fns.CHANGE_SPEED_ABS,
+            val: 1,
+        },
+        'x': {
+            fn: fns.CHANGE_TIME,
+            val: 2,
+        },
+        'z': {
+            fn: fns.CHANGE_TIME,
+            val: -2,
+        },
+        '.': {
+            fn: fns.CHANGE_TIME,
+            val: 0.03,
+        },
+        ',': {
+            fn: fns.CHANGE_TIME,
+            val: -0.03,
+        },
+        '\'': {
+            fn: fns.CHANGE_TIME,
+            val: 10,
+        },
+        ';': {
+            fn: fns.CHANGE_TIME,
+            val: -10,
+        },
+        'v': {
+            fn: fns.TOGGLE_VISIBILITY,
+        }
+    }
 }
 
 // panel params
 let panelOffsetHor = 6
 let panelOffsetVer = 6
-
-let maxSpeed = 16
-
-let hotkeys = {
-    's': {
-        fn: fns.CHANGE_SPEED,
-        val: 0.1,
-    },
-    'a': {
-        fn: fns.CHANGE_SPEED,
-        val: -0.1,
-    },
-    'c': {
-        fn: fns.CHANGE_SPEED_ABS,
-        val: 1,
-    },
-    'x': {
-        fn: fns.CHANGE_TIME,
-        val: 2,
-    },
-    'z': {
-        fn: fns.CHANGE_TIME,
-        val: -2,
-    },
-    '.': {
-        fn: fns.CHANGE_TIME,
-        val: 0.03,
-    },
-    ',': {
-        fn: fns.CHANGE_TIME,
-        val: -0.03,
-    },
-    '\'': {
-        fn: fns.CHANGE_TIME,
-        val: 10,
-    },
-    ';': {
-        fn: fns.CHANGE_TIME,
-        val: -10,
-    },
-    'v': {
-        fn: fns.TOGGLE_VISIBILITY,
-    }
-}
 
 let panel = null
 let speedText = null
@@ -98,6 +117,7 @@ function createPanel() {
     panel.id = "media-manipulator-panel"
     panel.style.top = `${playerRect.top + panelOffsetVer}px`
     panel.style.left = `${playerRect.left + panelOffsetHor}px`
+    panel.style.background = `rgba(0, 0, 0, ${settings.panelOpacity})`
     
     // add text
     speedText = document.createElement("p")
@@ -191,7 +211,7 @@ function changeSpeed(amount) {
     debug(player.playbackRate)
     let newSpeed = player.playbackRate + amount
     if (newSpeed < 0.1) newSpeed = 0.1
-    else if (newSpeed > maxSpeed) newSpeed = maxSpeed
+    else if (newSpeed > settings.maxSpeed) newSpeed = settings.maxSpeed
     player.playbackRate = newSpeed
     updatePanel()
 }
@@ -246,9 +266,9 @@ window.addEventListener('keydown', function(event) {
         return
     }
 
-    if (event.key in hotkeys) {
+    if (event.key in settings.hotkeys) {
         debug("pressed " + event.key)
-        let act = hotkeys[event.key]
+        let act = settings.hotkeys[event.key]
         let fn = act.fn
         // Call corresponding function
         if (fn == fns.CHANGE_TIME) {
