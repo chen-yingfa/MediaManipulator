@@ -26,4 +26,4 @@ Plan on adding customizable hotkeys in the future, for the moment, it's hard-cod
 
 ## Developers' Note
 
-Actually, there was one extension that allowed customizable hotkey and timestep [Video Speed Controller](https://github.com/igrigorik/videospeed), but it did not work with some videos on BiliBili (a website that I like to use), and do not support Ctrl, Shift and Alt keys, and do not have dark theme and look very old-fashioned. 
+Actually, there was one extension that allowed customizable hotkey and timestep [Video Speed Controller](https://github.com/igrigorik/videospeed), but it did not work with some videos on BiliBili (哔哩哔哩，b站，a website that I like to use), and do not support Ctrl, Shift and Alt keys, and do not have dark theme and look very old-fashioned. 
