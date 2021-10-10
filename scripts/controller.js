@@ -115,8 +115,8 @@ function createPanel() {
     let playerRect = player.getBoundingClientRect()
     panel = document.createElement("div")
     panel.id = "media-manipulator-panel"
-    panel.style.top = `${playerRect.top + panelOffsetVer}px`
-    panel.style.left = `${playerRect.left + panelOffsetHor}px`
+    // panel.style.top = `${playerRect.top + panelOffsetVer}px`
+    // panel.style.left = `${playerRect.left + panelOffsetHor}px`
     panel.style.background = `rgba(0, 0, 0, ${settings.panelOpacity})`
     
     // add text
@@ -164,7 +164,17 @@ function createPanel() {
     }
     makeDragable(panel)
 
+    updatePanel()
     window.onresize = updatePanel  // Reposition panel when window is resized
+}
+
+function destroyPanel() {
+    // Remove panel if it exists
+    if (!panel) return
+
+    info('Destroying panel')
+    document.body.removeChild(panel)
+    panel = null
 }
 
 function getPlayer() {
@@ -197,7 +207,10 @@ function getPlayer() {
 
 function updatePanel() {
     // Update panel text and position
-    if (!panel) return
+    if (!player || !panel) {
+        destroyPanel()
+        return
+    }
     let playerRect = player.getBoundingClientRect()
     panel.style.top = `${playerRect.top + panelOffsetVer}px`
     panel.style.left = `${playerRect.left + panelOffsetHor}px`
@@ -298,7 +311,7 @@ function fetchSettings() {
 }
 
 function onLoad() {
-    debug("Calling onLoad()")
+    info("Calling onLoad()")
     if (window.location.hostname.includes("bilibili.com")) {
         localStorage.setItem("bwphevc_supported", "\{\}")
     }
@@ -306,11 +319,35 @@ function onLoad() {
     player = getPlayer()
     if (player) {
         createPanel()
+        debug("Created panel")
+    } else {
+        destroyPanel()
+        debug('Destroyed panel')
     }
-    debug("Created panel")
 
     info("Init event listener for settings update")
     fetchSettings()
+}
+
+function onMutation() {
+    // If player is invalid after mutation, destroy it
+    player = getPlayer()
+
+    if (!player) {
+        destroyPanel()
+        return
+    }
+    const rect = player.getBoundingClientRect()
+    if (rect.width == 0 && rect.height == 0) {
+        destroyPanel()
+        return
+    }
+
+    // Player is valid, update it's position
+    if (!panel) {
+        createPanel()
+    }
+    updatePanel()
 }
 
 // A small delay to make sure page is loaded
@@ -341,8 +378,12 @@ window.addEventListener("message", (event) => {
         if (settings.enabled) {
             // If just enabled, create panel
             player = getPlayer()
-            if (player && !panel) {
-                createPanel()
+            if (player) {
+                if (!panel) {
+                    createPanel()
+                }
+            } else {
+                destroyPanel()
             }
         } else {
             // If just disabled, remove panel
@@ -353,3 +394,37 @@ window.addEventListener("message", (event) => {
         } 
     }
 }, false);
+
+// Listen to DOM changes
+function addMutationObserver() {
+
+    // Options for the observer (which mutations to observe)
+    const mutationObserverConfig = {
+        attributes: true,
+        childList: true,
+        subtree: true
+    }
+        
+    // Callback function to execute when mutations are observed
+    const callback = function(mutationsList, observer) {
+        // Use traditional 'for loops' for IE 11
+        for(const mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                if (mutation.target.tagName == 'video') {
+                    info("MutationObserver observed an addition of a video element")
+                    onLoad()
+                }
+            }
+        }
+        // info('Mutation observed')
+        onMutation()
+    }
+    
+    // Create an observer instance linked to the callback function
+    const mutationObserver = new MutationObserver(callback)
+    
+    // Start observing the target node for configured mutations
+    mutationObserver.observe(document.body, mutationObserverConfig)
+}
+
+addMutationObserver()
