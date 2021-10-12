@@ -110,6 +110,7 @@ function createPanel() {
      * Create the panel on the top left corner of the video, for showing
      * current playback rate.
      */
+    destroyPanel()
     info("Creating panel for showing playback rate")
     
     let playerRect = player.getBoundingClientRect()
