@@ -155,13 +155,8 @@ function createPanel() {
             // set the element's new position:
             elem.style.top = (elem.offsetTop - finalY) + "px";
             elem.style.left = (elem.offsetLeft - finalX) + "px";
-<<<<<<< HEAD
             panelOffsetHor -= finalX;
             panelOffsetVer -= finalY;
-=======
-            panelOffsetVer = elem.style.top;
-            panelOffsetHor = elem.style.left;
->>>>>>> 8c2eb6e2e0aa0cd1edefdd70cc9ff8cbf6e01fdc
         }
 
         function onMouseUp() {
