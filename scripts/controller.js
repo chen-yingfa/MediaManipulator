@@ -214,10 +214,22 @@ function updatePanel() {
         destroyPanel()
         return
     }
+    
+    // Update content
+    speedText.textContent = player.playbackRate.toFixed(2).toString()
+
+    // Update position
+
+    // Bilibili moves all element when scrolling, so no need to 
+    if (window.location.hostname.includes("bilibili.com")) {
+        if (panel.style.top != 0 || panel.style.left != 0) {
+            return
+        }
+    }
+
     let playerRect = player.getBoundingClientRect()
     panel.style.top = `${playerRect.top + panelOffsetVer}px`
     panel.style.left = `${playerRect.left + panelOffsetHor}px`
-    speedText.textContent = player.playbackRate.toFixed(2).toString()
 }
 
 
